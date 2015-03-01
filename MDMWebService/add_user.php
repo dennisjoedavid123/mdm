@@ -11,8 +11,9 @@ include('util.php');
 
 function adduser($data) {
     $conn=connect();
-    mysql_select_db('mdm2_12nov2014');
-    $employee_id=$first_name=$login_name=$password=$dob=$gender_id=$marital_status_id=$email=$photo=$address=$city=$state=$pincode=$country_id=$landline=$mobile=$employee_status='';
+//    mysql_select_db('mdm2_12nov2014');
+    $designation_id=$device_id=$first_name=$login_name=$password=$dob=$gender_id=$marital_status_id=$email=$photo=$address=$city=$state=$pincode=$country_id=$landline=$mobile=$employee_status='';
+    $employee_id=0;
     foreach ($data['info'] as $log) {
         if ($log['name'] == 'first_name') {
             $first_name = $log['value'];
@@ -71,9 +72,18 @@ function adduser($data) {
         if ($log['name'] == 'employee_status') {
             $employee_status = convertValuesID("gst_employee_status","employee_status_id","employee_status",$log['value']);
         }
+        if($log['name']=='action_flag'){
+            $action_flag = $log['value'];
+        }
 
+        if($log['name']=='device_id'){
+            $device_id=$log['value'];
+        }
+        if($log['name']=='designation'){
+            $designation_id = convertValuesID("gst_department_hierarchy","hierarchy_id","hierarchy_name",$log['value']);
+        }
        // echo $first_name. " welcome";
-
+        $profile_id=0;
     }
 
     if($conn==null){
@@ -81,9 +91,15 @@ function adduser($data) {
         return json_decode('{"status":"db connection error.."}');
     }
     else {
-        echo 'inside adduser.';
-        $sql = "insert into gst_employee_profile(employee_code,first_name,middle_name,last_name,login_name,password,dob,gender_id,marital_status_id,email,photo,address,city,state,pincode,country_id,landline,mobile,employee_status) values('".$employee_code."','".$first_name."','".$middle_name."','".$last_name."','".$login_name."','".$password."','".$dob."',$gender_id,$marital_status_id,'".$email."','".$photo."','".$address."','".$city."','".$state."','".$pincode."',$country_id,'".$landline."','".$mobile."','".$employee_status."') ";
-        echo $sql;
+//        echo 'inside adduser.';
+//        $sql = "insert into gst_employee_profile(employee_code,first_name,middle_name,last_name,login_name,password,dob,gender_id,marital_status_id,email,photo,address,city,state,pincode,country_id,landline,mobile,employee_status) values('".$employee_code."','".$first_name."','".$middle_name."','".$last_name."','".$login_name."','".$password."','".$dob."',$gender_id,$marital_status_id,'".$email."','".$photo."','".$address."','".$city."','".$state."','".$pincode."',$country_id,'".$landline."','".$mobile."','".$employee_status."') ";
+//        echo $sql;
+        $sql = "CALL gst_add_user(" . $action_flag . "," . $employee_id . ", '" . $first_name . "','" . $middle_name . "',
+            '" . $last_name . "'," . $designation_id. ",'" . $employee_code . "','" . $dob. "', " . $gender_id . ",
+            " . $marital_status_id . ",'" . $email . "','" .  $landline . "','" .$mobile. "','" . $address . "',
+                    '" . $photo . "','" . $login_name. "','" . $password . "','" . $city . "','" . $state . "','" . $pincode . "',
+                        " . $country_id . "," . $device_id . "," . $profile_id . ",@status , @user_id , '')";
+        //echo $sql;
         $result = mysql_query($sql);
         if ($result) {
             echo '{"status":"success"}';
@@ -96,4 +112,5 @@ function adduser($data) {
 
 }
 ?>
+
 
