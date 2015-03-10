@@ -26,11 +26,7 @@ function authUser($data)
         return json_decode('{"status":"db connection error.."}');
     }
     else {
-        $dbselect = mysql_select_db('mdm2_12nov2014');
-        if(!$dbselect){
-            echo 'error occured..';
-        }
-        else {
+
             $sql = "select login_name from gst_employee_profile where login_name='" . $username . "' and password='" . $password . "'";
             $result = mysql_query($sql);
             if (mysql_num_rows($result) > 0) {
@@ -38,7 +34,7 @@ function authUser($data)
             } else {
                 echo '{"status":"failed"}';
             }
-        }
+
     }
 
 

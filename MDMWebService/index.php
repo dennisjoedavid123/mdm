@@ -33,6 +33,43 @@ if(checkParam($method,$params,$key)==1){
             adduser($data_decode);
             break;
         }
+        case 'updateuser' :
+        {
+            include('update_user.php');
+            updateuser($data_decode);
+            break;
+        }
+        case 'adddevice':
+        {
+            include('add_device.php');
+            adddevice($data_decode);
+            break;
+        }
+        case 'viewuser':
+        {
+             include('view_user.php');
+             viewuser($data_decode);
+             break;
+        }
+        case "countrylist" :
+        {
+            include('country_list.php');
+            viewcountry($data_decode);
+            break;
+        }
+        case "deviceinfo":
+        {
+            include('device_info.php');
+            viewdevice($data_decode);
+            break;
+        }
+        case "featurelist":
+        {
+            include('get_feature_details.php');
+            viewfeaturedetails($data_decode);
+            break;
+        }
+
     }
 
 }
@@ -41,9 +78,9 @@ else{
 }
 
 function checkParam($methodname, $parameter, $publickey) {
-//    echo 'checkParam called';
+  // echo 'checkParam called';
     $conn=connect();
-    mysql_select_db('mdm2_12nov2014');
+//    mysql_select_db('mdm2_12nov2014');
     if ($conn==null) {
         echo "Not  connected...";
     } else {
@@ -51,11 +88,13 @@ function checkParam($methodname, $parameter, $publickey) {
         if (!$result) {
             die("Database query failed: " . mysql_error());
         } else {
-           $res=mysql_query("select * from authtokentable where publickey='".$publickey."'");
+            $res=mysql_query("select * from authtokentable where publickey='".$publickey."'");
             if($res){
+//                echo 'success';
                return 1;
             }
             else {
+//                echo 'not success';
                 return 0;
             }
 

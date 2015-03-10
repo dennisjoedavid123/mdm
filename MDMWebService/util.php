@@ -14,7 +14,7 @@
 function convertValuesID($table_name,$result_type,$input_type,$value)
 {
     $conn = connect();
-    mysql_select_db('mdm2_12nov2014');
+//    mysql_select_db('mdm2_12nov2014');
     if ($conn) {
 
         $sql = "select " . $result_type . " from " . $table_name . " where upper(" . $input_type . ")='" . strtoupper($value) . "'";
@@ -25,12 +25,9 @@ function convertValuesID($table_name,$result_type,$input_type,$value)
         }
         else {
             while ($row = mysql_fetch_assoc($result)) {
-               // echo $row['marital_status_id'];
                 return $row[ $result_type ];
             }
 
-//        echo 'result ='.$result['.$result_type.'];
-//        return $result;
         }
     }
 }

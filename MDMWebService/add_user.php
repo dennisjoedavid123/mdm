@@ -83,7 +83,7 @@ function adduser($data) {
             $designation_id = convertValuesID("gst_department_hierarchy","hierarchy_id","hierarchy_name",$log['value']);
         }
        // echo $first_name. " welcome";
-        $profile_id=0;
+        $profile_id=101;
     }
 
     if($conn==null){
@@ -95,11 +95,11 @@ function adduser($data) {
 //        $sql = "insert into gst_employee_profile(employee_code,first_name,middle_name,last_name,login_name,password,dob,gender_id,marital_status_id,email,photo,address,city,state,pincode,country_id,landline,mobile,employee_status) values('".$employee_code."','".$first_name."','".$middle_name."','".$last_name."','".$login_name."','".$password."','".$dob."',$gender_id,$marital_status_id,'".$email."','".$photo."','".$address."','".$city."','".$state."','".$pincode."',$country_id,'".$landline."','".$mobile."','".$employee_status."') ";
 //        echo $sql;
         $sql = "CALL gst_add_user(" . $action_flag . "," . $employee_id . ", '" . $first_name . "','" . $middle_name . "',
-            '" . $last_name . "'," . $designation_id. ",'" . $employee_code . "','" . $dob. "', " . $gender_id . ",
+            '" . $last_name . "'," . $designation_id. ",'" . $employee_code . "','" .date("Y-m-d"). "', " . $gender_id . ",
             " . $marital_status_id . ",'" . $email . "','" .  $landline . "','" .$mobile. "','" . $address . "',
                     '" . $photo . "','" . $login_name. "','" . $password . "','" . $city . "','" . $state . "','" . $pincode . "',
                         " . $country_id . "," . $device_id . "," . $profile_id . ",@status , @user_id , '')";
-        //echo $sql;
+        echo $sql;
         $result = mysql_query($sql);
         if ($result) {
             echo '{"status":"success"}';
@@ -112,5 +112,4 @@ function adduser($data) {
 
 }
 ?>
-
 
