@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 include('dbconnect.php');
 $post_json = $_POST;
 $data = json_encode($post_json);
