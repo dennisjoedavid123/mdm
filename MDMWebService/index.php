@@ -70,6 +70,88 @@ if(checkParam($method,$params,$key)==1){
             viewfeaturedetails($data_decode);
             break;
         }
+        case "getrole":
+        {
+            include('get_role.php');
+            getrole($data_decode);
+            break;
+        }
+        case "view_user_basics":
+        {
+            include('view_user_basics.php');
+            view_user_basics($data_decode);
+            break;
+        }
+        case "unassigndevice":
+        {
+            include("unassigndevice.php");
+            unassigndevice($data_decode);
+            break;
+        }
+        case "viewpolicy":
+        {
+            include("view_policy.php");
+            viewpolicy($data_decode);
+            break;
+        }
+
+        case "viewpolicy_devicedetails":
+        {
+            include("view_policy_device_details.php");
+            viewpolicy_devicedetails($data_decode);
+            break;
+        }
+        case "viewpolicytype":
+        {
+            include("get_profile_types.php");
+            viewpolicytype($data_decode);
+            break;
+        }
+        case "addpolicy":
+        {
+            include("add_policy.php");
+            addpolicy($data_decode);
+            break;
+        }
+        case "unassigned_user_list":
+        {
+            include("unassigned_user_list.php");
+            unassigned_user_list($data_decode);
+            break;
+        }
+        case "unassigned_device_list":
+        {
+            include("unassigned_device_list.php");
+            unassigned_device_list($data_decode);
+            break;
+        }
+        case "checklock_unlock":
+        {
+            include("checklock_unlock.php");
+            checklock_unlock($data_decode);
+            break;
+        }
+        case "writeproxy":
+        {
+            include("proxy.php");
+            writeProxyFile($data_decode);
+            break;
+        }
+        case "restartproxy":
+        {
+            include("proxy.php");
+            restartProxy();
+            break;
+        }
+        case "userproxy":
+        {
+            include("proxy.php");
+            writeUserProxy($data_decode);
+            break;
+        }
+
+
+
 
     }
 
