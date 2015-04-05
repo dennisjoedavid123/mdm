@@ -83,7 +83,10 @@ function adduser($data) {
             $designation_id = convertValuesID("gst_department_hierarchy","hierarchy_id","hierarchy_name",$log['value']);
         }
        // echo $first_name. " welcome";
-        $profile_id=101;
+        //$profile_id=0;
+        if($log['name']=='profile_id'){
+            $profile_id=$log['value'];
+        }
     }
 
     if($conn==null){
@@ -100,9 +103,14 @@ function adduser($data) {
                     '" . $photo . "','" . $login_name. "','" . $password . "','" . $city . "','" . $state . "','" . $pincode . "',
                         " . $country_id . "," . $device_id . "," . $profile_id . ",@status , @user_id , '')";
         echo $sql;
+       // die;
         $result = mysql_query($sql);
         if ($result) {
             echo '{"status":"success"}';
+           // mysql_query("SHOW WARNINGS");
+           // mysql_get_warnings();
+
+
         } else {
             echo '{"status":"failed : '.mysql_error().'"}';
         }
